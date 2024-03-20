@@ -7,34 +7,45 @@ class PasswordGenerator:
     # indexes = [136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 0];
     
     
-    def __init__(self, tokens, cached_index = [], max_length= 18) -> None:
+    def __init__(self, tokens, cached_index = [], min_length = 4, max_length= 18) -> None:
+        i = 0;
+        indexes = [];
+        
         self.tokens = tokens;
         self.max_length = max_length;
         
+        if min_length > 0:
+            while i < min_length:
+                indexes.append(0);
+                i += 1;
+        
+        self.indexes = indexes;
         if cached_index:
             self.indexes = cached_index;
     
-    def generate(self, next, data):
+    def generate(self, next = None, data = None):
         if(self.batchIsCompleted()):
             print("completed");
         else:
             self.generateBatch(next, data);
     
-    def generateBatch(self, next, data):
+    def generateBatch(self, next = None, data = None):
         psw = self.createPassword();
         
-        next(psw, self.indexes, data);
+        if next:
+            next(psw, self.indexes, data);
         
         while not self.batchIsCompleted():
             self.incrementIndex();
             psw = self.createPassword();
             
-            next(psw, self.indexes, data);
+            if next:
+                next(psw, self.indexes, data);
         else:
             if not len(self.indexes) >= self.max_length:
                 self.incrementIndex();
                 self.resetIndexes();
-                self.generateBatch(len(self.indexes));
+                self.generateBatch();
             else:
                 print("endl");
     
