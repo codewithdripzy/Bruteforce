@@ -11,7 +11,7 @@ tokenizer = Tokenizer("data/test_characthers.txt");
 tokens = tokenizer.init();
     
 # Generate the possible combinations
-generator = PasswordGenerator(tokens, min_length=8, max_length=8);
+generator = PasswordGenerator(tokens, min_length=2, max_length=8);
 generated = generator.generate(logData);
 
 # do something with the generated passwords

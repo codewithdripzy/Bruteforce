@@ -45,7 +45,7 @@ class PasswordGenerator:
             if not len(self.indexes) >= self.max_length:
                 self.incrementIndex();
                 self.resetIndexes();
-                self.generateBatch();
+                self.generateBatch(next, data);
             else:
                 print("endl");
     
