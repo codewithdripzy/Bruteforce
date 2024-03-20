@@ -7,8 +7,9 @@ class PasswordGenerator:
     # indexes = [136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 0];
     
     
-    def __init__(self, tokens, cached_index = []) -> None:
+    def __init__(self, tokens, cached_index = [], max_length= 18) -> None:
         self.tokens = tokens;
+        self.max_length = max_length;
         
         if cached_index:
             self.indexes = cached_index;
